@@ -360,3 +360,108 @@ template {
   padding: 0;
   box-sizing: border-box;
 }
+
+html {
+  background: Bisque;
+  padding: 15px;
+}
+
+.container {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+canvas {
+  background: #BBADA0;
+  border-radius: 7px;
+}
+
+.upperPanel {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  padding: 15px 0;
+}
+.upperPanel__gameName {
+  height: 110px;
+  text-align: center;
+}
+.upperPanel__gameName h1 {
+  display: flex;
+  letter-spacing: 2px;
+  margin: 0;
+  font-size: 60px;
+  line-height: 60px;
+}
+.upperPanel__gameName h1 span {
+  font-family: cursive;
+}
+.upperPanel__gameName h1 span:nth-child(1) {
+  color: #E6BF3D;
+}
+.upperPanel__gameName h1 span:nth-child(2) {
+  color: #CFC7BE;
+}
+.upperPanel__gameName h1 span:nth-child(3) {
+  color: #F59662;
+}
+.upperPanel__gameName h1 span:nth-child(4) {
+  color: #F65E3C;
+}
+.upperPanel__gameName h2 {
+  font-size: 48px;
+  line-height: 48px;
+  font-family: Helvetica;
+  color: #d3663c;
+  text-shadow: 1px 1px 3px #2e2e11;
+}
+.upperPanel__wraper {
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.upperPanel__newGame {
+  padding: 5px 15px;
+  font-size: 20px;
+  background: #8F7A66;
+  color: #ffebd1;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.upperPanel__newGame:hover {
+  transform: scale(1.05);
+  background: #97826e;
+}
+.upperPanel__newGame:active {
+  transform: scale(1);
+  background: #8b7663;
+}
+.upperPanel__score {
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #a59e97;
+  border-radius: 5px;
+  padding: 5px 15px;
+}
+.upperPanel__score h2 {
+  font-size: 15px;
+  color: #eee4da;
+  margin-bottom: 5px;
+}
+.upperPanel__score p {
+  font-size: 28px;
+  line-height: 28px;
+  color: snow;
+  font-weight: bolder;
+}

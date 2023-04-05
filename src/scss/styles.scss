@@ -8,13 +8,32 @@
 	box-sizing: border-box;
 }
 
+html {
+	background: Bisque;
+	padding: 15px;
+}
+
+.container {
+	width: 500px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
+}
+
+canvas {
+	background: #BBADA0;
+	border-radius: 7px;
+}
+
 // Base
 // @import "./base/animations";
 // @import "./base/variables";
 // @import "./base/mixins";
 
 // blocks
-// @import "./blocks/";
+@import "./blocks/upperPanel/upperPanel.scss";
 
 // Media
 // @import "./blocks/";
