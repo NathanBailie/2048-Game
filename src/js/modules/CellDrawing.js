@@ -11,6 +11,25 @@ export default class CellDrawing extends BasicSettings {
 	speed = this.basicSettings.speed;
 
 
+	chooseCellColor = (num) => {
+		let color;
+		switch (num) {
+			case 0: color = "#CDC1B4"; break;
+			case 2: color = "#EEE4DA"; break;
+			case 4: color = "#EDE0C8"; break;
+			case 8: color = "#f2b179"; break;
+			case 16: color = "#F59563"; break;
+			case 32: color = "#F67C5F"; break;
+			case 64: color = "#F65E3B"; break;
+			case 128: color = "#EDCF72"; break;
+			case 256: color = "#EDCC61"; break;
+			case 512: color = "#EDC850"; break;
+			case 1024: color = "#EDC53F"; break;
+			case 2048: color = "#EDC22E"; break;
+			default: color = "#CDC1B4";
+		};
+		return color;
+	};
 
 	chooseTextColor = (num) => {
 		let color;
