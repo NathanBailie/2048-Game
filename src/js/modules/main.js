@@ -1,6 +1,8 @@
 import BasicSettings from './BasicSettings.js';
+import CellDrawing from './CellDrawing.js'
 
-
+let cellDrawing = new CellDrawing();
+let toDrawTheCell = cellDrawing.toDrawTheCell;
 let basicSettings = new BasicSettings();
 
 let cellSize = basicSettings.cellSize;
