@@ -1,3 +1,5 @@
+import { zeroyingMergeValue } from './utils.js';
+
 export default class MergeDownwards {
 
 	mergeDown(cell, colNumber, data, ctx, cellSize, space, speed, toDrawTheCell, clearTheColumns, callback) {
@@ -81,5 +83,35 @@ export default class MergeDownwards {
 			}
 		}
 		playAnimation();
+	};
+
+	moveTheColDown = (colNumber, animationPlaying, ...args) => {
+		let [data] = [...args];
+		if (colNumber > 4 || colNumber < 1) {
+			throw new Error('Wrong row number, please choose from 1 to 4');
+		};
+
+		let index = 8 + colNumber - 1;
+
+		this.mergeDown(data[index], colNumber, ...args,
+			() => {
+				this.mergeDown(data[index - 4], colNumber, ...args,
+					() => {
+						this.mergeDown(data[index - 8], colNumber, ...args,
+							() => { zeroyingMergeValue(data); animationPlaying = false; }
+						)
+					})
+			});
+	};
+
+	moveAllCellsDown = (animationPlaying, ...args) => {
+		console.log(123)
+		if (!animationPlaying) {
+			animationPlaying = true;
+			this.moveTheColDown(1, animationPlaying, ...args);
+			this.moveTheColDown(2, animationPlaying, ...args);
+			this.moveTheColDown(3, animationPlaying, ...args);
+			this.moveTheColDown(4, animationPlaying, ...args);
+		};
 	};
 };
