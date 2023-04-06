@@ -76,6 +76,12 @@ function toDrawTheBoard() {
 	};
 };
 
+function zeroyingMergeValue(data) {
+	for (let elem of data) {
+		elem.merged = false;
+	};
+};
+
 
 // !
 function mergeDown(cell, colNumber, callback) {
@@ -151,9 +157,10 @@ function mergeDown(cell, colNumber, callback) {
 		}
 
 		if (startCopy.y === target.y) {
-			cancelAnimationFrame(animation);
+			clearTheColumns(ctx, colNumber, cellSize, space, data, toDrawTheCell);
 			data[targetId].num = startCopy.num + targetCopy.num;
 			toDrawTheCell(target, ctx);
+			cancelAnimationFrame(animation);
 			callback && callback();
 		}
 	}
@@ -173,6 +180,7 @@ function moveTheColDown(colNumber) {
 			mergeDown(data[index - 4], colNumber,
 				() => {
 					mergeDown(data[index - 8], colNumber,
+						() => { zeroyingMergeValue(data) }
 					)
 				})
 		});
@@ -190,7 +198,5 @@ function moveAllCellsDown() {
 window.addEventListener('keydown', (e) => {
 	if (e.key === 'ArrowDown') {
 		moveAllCellsDown();
-		// mergeDown(data[0], 1)
-		console.log(data)
 	}
 });
