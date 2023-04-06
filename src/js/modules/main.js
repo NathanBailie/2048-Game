@@ -45,6 +45,7 @@ let data = [
 	createCellObject(cellSize * 2 + space * 3, cellSize * 3 + space * 4, 0),
 	createCellObject(cellSize * 3 + space * 4, cellSize * 3 + space * 4, 0),
 ];
+let animationPlaying = false;
 
 data[0].num = 2; // 0
 data[1].num = 2; // 1
@@ -87,7 +88,6 @@ function zeroyingMergeValue(data) {
 	};
 };
 
-
 // !
 function moveTheColDown(colNumber) {
 	let args = [data, ctx, cellSize, space, speed, toDrawTheCell, clearTheColumns]
@@ -102,19 +102,21 @@ function moveTheColDown(colNumber) {
 			mergeDown(data[index - 4], colNumber, ...args,
 				() => {
 					mergeDown(data[index - 8], colNumber, ...args,
-						() => { zeroyingMergeValue(data) }
+						() => { zeroyingMergeValue(data); animationPlaying = false; }
 					)
 				})
 		});
-}
-
-function moveAllCellsDown() {
-	moveTheColDown(1);
-	moveTheColDown(2);
-	moveTheColDown(3);
-	moveTheColDown(4);
 };
 
+function moveAllCellsDown() {
+	if (!animationPlaying) {
+		animationPlaying = true;
+		moveTheColDown(1);
+		moveTheColDown(2);
+		moveTheColDown(3);
+		moveTheColDown(4);
+	};
+};
 
 window.addEventListener('keydown', (e) => {
 	if (e.key === 'ArrowDown') {
