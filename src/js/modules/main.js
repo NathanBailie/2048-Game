@@ -1,8 +1,9 @@
 import BasicSettings from './BasicSettings.js';
 import CellDrawing from './CellDrawing.js';
 import CellCleaning from './CellCleaning.js';
-import CellMovement from './CellMovement.js';
 import MergeDownwards from './MergeDownwards.js';
+import MergeUpwards from './MergeUpwards.js';
+import MergeRightwards from './MergeRightwards.js';
 
 let canvas = document.querySelector('canvas');
 let ctx = canvas.getContext('2d');
@@ -19,6 +20,7 @@ let speed = basicSettings.speed;
 
 let cellCleaning = new CellCleaning();
 let clearTheColumns = cellCleaning.clearTheColumns;
+let clearTheRows = cellCleaning.clearTheRows;
 
 let mergeDownwards = new MergeDownwards();
 let moveAllCellsDown = mergeDownwards.moveAllCellsDown;
@@ -41,13 +43,22 @@ let data = [
 	createCellObject(cellSize * 2 + space * 3, cellSize * 3 + space * 4, 0),
 	createCellObject(cellSize * 3 + space * 4, cellSize * 3 + space * 4, 0),
 ];
-let animationPlaying = false;
 
-data[0].num = 2; // 0
+let count = 12;
+
+function raiseCounter() {
+	count += 1;
+};
+
+function changeMergeValue(index) {
+	data[index].merged = true;
+};
+
+data[0].num = 4; // 0
 data[1].num = 2; // 1
 data[2].num = 2; // 2
-data[3].num = 2; // 3
-data[4].num = 2; // 4
+data[3].num = 0; // 3
+data[4].num = 4; // 4
 data[5].num = 2; // 5
 data[6].num = 2; // 6
 data[7].num = 0; // 7
@@ -79,9 +90,13 @@ function toDrawTheBoard() {
 };
 
 window.addEventListener('keydown', (e) => {
-	let args = [data, ctx, cellSize, space, speed, toDrawTheCell, clearTheColumns];
-
-	if (e.key === 'ArrowDown' || e.key.toLowerCase() === 's') {
-		moveAllCellsDown(animationPlaying, ...args);
+	let mainArgs = [data, ctx, cellSize, space, speed, toDrawTheCell];
+	let args1 = [...mainArgs, clearTheColumns];
+	let args2 = [...mainArgs, clearTheRows];
+	if (count === 12) {
+		if (e.key === 'ArrowDown' || e.key.toLowerCase() === 's') {
+			count = 0;
+			moveAllCellsDown(raiseCounter, args1);
+		};
 	}
 });
