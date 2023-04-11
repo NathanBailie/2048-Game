@@ -25,6 +25,9 @@ let clearTheRows = cellCleaning.clearTheRows;
 let mergeDownwards = new MergeDownwards();
 let moveAllCellsDown = mergeDownwards.moveAllCellsDown;
 
+let mergeUpwards = new MergeUpwards();
+let moveAllCellsUp = mergeUpwards.moveAllCellsUp;
+
 let data = [
 	createCellObject(space, space, 0),
 	createCellObject(cellSize + space * 2, space, 0),
@@ -97,6 +100,10 @@ window.addEventListener('keydown', (e) => {
 		if (e.key === 'ArrowDown' || e.key.toLowerCase() === 's') {
 			count = 0;
 			moveAllCellsDown(raiseCounter, args1);
+		};
+		if (e.key === 'ArrowUp' || e.key.toLowerCase() === 'w') {
+			count = 0;
+			moveAllCellsUp(raiseCounter, args1);
 		};
 	}
 });
