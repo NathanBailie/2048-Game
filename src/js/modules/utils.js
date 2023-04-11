@@ -17,4 +17,22 @@ export function zeroyingMergeValue(rowOrCol, colOrRowNumber, data) {
 
 export function getRandomNum(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+export function compareArraysOfObjects(arr1, arr2) {
+	for (let i = 0; i < arr1.length; i++) {
+		let keys1 = Object.keys(arr1[i]);
+		let keys2 = Object.keys(arr2[i]);
+		if (!keys1.every(key => keys2.includes(key))) {
+			return false;
+		};
+
+		let values1 = Object.values(arr1[i]);
+		let values2 = Object.values(arr2[i]);
+		if (!values1.every(value => values2.includes(value))) {
+			return false;
+		};
+	};
+
+	return true;
 }

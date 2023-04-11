@@ -101,7 +101,7 @@ export default class MergeLeftwards {
 		playAnimation();
 	};
 
-	moveTheColLeft = (rowNumber, args, raiseCounter) => {
+	moveTheColLeft = (rowNumber, raiseCounter, args) => {
 		let data = args[0];
 		let index = rowNumber * 4;
 
@@ -117,9 +117,9 @@ export default class MergeLeftwards {
 	};
 
 	moveAllCellsLeft = (raiseCounter, args) => {
-		this.moveTheColLeft(1, args, raiseCounter);
-		this.moveTheColLeft(2, args, raiseCounter);
-		this.moveTheColLeft(3, args, raiseCounter);
-		this.moveTheColLeft(4, args, raiseCounter);
+		this.moveTheColLeft(1, raiseCounter, args);
+		this.moveTheColLeft(2, raiseCounter, args);
+		this.moveTheColLeft(3, raiseCounter, args);
+		this.moveTheColLeft(4, raiseCounter, args);
 	};
 };

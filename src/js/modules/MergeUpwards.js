@@ -89,7 +89,7 @@ export default class MergeUpwards {
 		playAnimation();
 	};
 
-	moveTheColUp = (colNumber, args, raiseCounter) => {
+	moveTheColUp = (colNumber, raiseCounter, args) => {
 		let data = args[0];
 		let index = 8 + colNumber - 1;
 
@@ -104,9 +104,9 @@ export default class MergeUpwards {
 	};
 
 	moveAllCellsUp = (raiseCounter, args) => {
-		this.moveTheColUp(1, args, raiseCounter);
-		this.moveTheColUp(2, args, raiseCounter);
-		this.moveTheColUp(3, args, raiseCounter);
-		this.moveTheColUp(4, args, raiseCounter);
+		this.moveTheColUp(1, raiseCounter, args);
+		this.moveTheColUp(2, raiseCounter, args);
+		this.moveTheColUp(3, raiseCounter, args);
+		this.moveTheColUp(4, raiseCounter, args);
 	};
 };

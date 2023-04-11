@@ -5,7 +5,7 @@ import MergeDownwards from './MergeDownwards.js';
 import MergeUpwards from './MergeUpwards.js';
 import MergeRightwards from './MergeRightwards.js';
 import MergeLeftwards from './MergeLeftwards.js';
-import { getRandomNum } from './utils.js';
+import { getRandomNum, compareArraysOfObjects } from './utils.js';
 
 let canvas = document.querySelector('canvas');
 let ctx = canvas.getContext('2d');
@@ -56,14 +56,13 @@ let data = [
 	createCellObject(cellSize * 3 + space * 4, cellSize * 3 + space * 4, 0),
 ];
 
+let previousData = [];
 let count = 12;
+let flag = false;
+let interval;
 
 function raiseCounter() {
 	count += 1;
-};
-
-function changeMergeValue(index) {
-	data[index].merged = true;
 };
 
 // data[0].num = 4; // 0
@@ -97,7 +96,6 @@ for (const elem of data) {
 	toDrawTheCell(elem, ctx)
 }
 
-
 function startNewGame() {
 	let firstCellNum = getRandomNum(1, 100) >= 90 ? 4 : 2;
 	let secondCellNum = getRandomNum(1, 100) >= 90 ? 4 : 2;
@@ -120,6 +118,43 @@ function startNewGame() {
 	};
 };
 
+function drawTheNewCell() {
+	let newCellNum = getRandomNum(1, 100) >= 90 ? 4 : 2;
+	let zeroNumCellIndexes = [];
+
+	data.forEach((elem, index) => {
+		if (elem.num === 0) {
+			zeroNumCellIndexes.push(index);
+		};
+	});
+
+	let randomNum = getRandomNum(0, zeroNumCellIndexes.length - 1);
+	let id = zeroNumCellIndexes[randomNum];
+	data[id].num = newCellNum;
+	toDrawTheCell(data[id], ctx);
+};
+
+function runInterval() {
+	if (compareArraysOfObjects(previousData, data)) {
+		flag = false;
+		return;
+	};
+	interval = setInterval(() => {
+		if (count === 12 && flag === true) {
+			drawTheNewCell();
+			clearInterval(interval);
+		};
+	}, 0);
+};
+
+function copyData(data) {
+	previousData = [];
+
+	for (let elem of data) {
+		previousData.push({ ...elem });
+	};
+}
+
 
 newGameButton.addEventListener('click', () => { startNewGame() });
 
@@ -131,19 +166,31 @@ window.addEventListener('keydown', (e) => {
 	if (count === 12) {
 		if (e.key === 'ArrowDown' || e.key.toLowerCase() === 's') {
 			count = 0;
+			flag = true;
+			copyData(data);
 			moveAllCellsDown(raiseCounter, args1);
+			runInterval();
 		};
 		if (e.key === 'ArrowUp' || e.key.toLowerCase() === 'w') {
 			count = 0;
+			flag = true;
+			copyData(data);
 			moveAllCellsUp(raiseCounter, args1);
+			runInterval();
 		};
 		if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') {
 			count = 0;
-			moveAllCellsRight(raiseCounter, args2, changeMergeValue);
+			flag = true;
+			copyData(data);
+			moveAllCellsRight(raiseCounter, args2);
+			runInterval();
 		};
 		if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') {
 			count = 0;
-			moveAllCellsLeft(raiseCounter, args2, changeMergeValue);
+			flag = true;
+			copyData(data);
+			moveAllCellsLeft(raiseCounter, args2);
+			runInterval();
 		};
-	}
+	};
 });
