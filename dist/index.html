@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon.png">
 	<title>2048</title>
-<script defer src="js/bundle.fc89741c28227e28e61d.js"></script><link href="css/styles.0ca22a8f9ab882ea4d72.css" rel="stylesheet"></head>
+<script defer src="js/bundle.e275c5e01cf6d9610e43.js"></script><link href="css/styles.3b92a554c7da168bda57.css" rel="stylesheet"></head>
 
 <body>
 	<div class="container">
@@ -21,14 +21,20 @@
 				<h2>Game</h2>
 			</div>
 			<div class="upperPanel__wraper">
-				<button class="upperPanel__newGame">New game</button>
+				<div class="upperPanel__buttons">
+					<button class="upperPanel__undo">Undo last move</button>
+					<button class="upperPanel__newGame">New game</button>
+				</div>
 				<div class="upperPanel__score">
 					<h2>your score</h2>
 					<p>0</p>
 				</div>
 			</div>
 		</div>
-		<canvas width="500" height="500"></canvas>
+		<div class="gameWraper">
+			<canvas width="500" height="500"></canvas>
+			<div class="victoryWindow">You win!</div>
+		</div>
 	</div>
 
 

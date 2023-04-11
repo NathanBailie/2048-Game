@@ -1,0 +1,29 @@
+.gameWraper {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  border-radius: 7px;
+
+  canvas {
+    background: #BBADA0;
+    border-radius: 7px;
+  }
+
+  .victoryWindow {
+    position: absolute;
+    top: 0;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #F9F6F2;
+    border-radius: 7px;
+    font-size: 60px;
+    font-weight: bold;
+    background: rgb(239, 183, 23, 0.6);
+    opacity: 0;
+    transition: all 1s linear;
+    user-select: none;
+  }
+}

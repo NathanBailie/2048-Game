@@ -1,5 +1,4 @@
 @import '~normalize.css';
-// @import './fonts';
 
 * {
 	font-family: '', sans-serif;
@@ -22,18 +21,6 @@ html {
 	margin: 0 auto;
 }
 
-canvas {
-	background: #BBADA0;
-	border-radius: 7px;
-}
-
-// Base
-// @import "./base/animations";
-// @import "./base/variables";
-// @import "./base/mixins";
-
 // blocks
 @import "./blocks/upperPanel/upperPanel.scss";
-
-// Media
-// @import "./blocks/";
+@import "./blocks/gameWraper/gameWraper.scss";

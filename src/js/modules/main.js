@@ -10,6 +10,8 @@ import { getRandomNum, compareArraysOfObjects } from './utils.js';
 let canvas = document.querySelector('canvas');
 let ctx = canvas.getContext('2d');
 let newGameButton = document.querySelector('.upperPanel__newGame');
+let score = document.querySelector('.upperPanel__score p');
+let victoryWindow = document.querySelector('.victoryWindow');
 
 let cellDrawing = new CellDrawing();
 let toDrawTheCell = cellDrawing.toDrawTheCell;
@@ -57,6 +59,7 @@ let data = [
 ];
 
 let previousData = [];
+let play = false;
 let count = 12;
 let flag = false;
 let interval;
@@ -116,6 +119,8 @@ function startNewGame() {
 	for (let elem of data) {
 		toDrawTheCell(elem, ctx);
 	};
+	play = true;
+	updateTheScore();
 };
 
 function drawTheNewCell() {
@@ -141,8 +146,10 @@ function runInterval() {
 	};
 	interval = setInterval(() => {
 		if (count === 12 && flag === true) {
+			flag = false;
 			drawTheNewCell();
 			clearInterval(interval);
+			updateTheScore();
 		};
 	}, 0);
 };
@@ -153,8 +160,20 @@ function copyData(data) {
 	for (let elem of data) {
 		previousData.push({ ...elem });
 	};
-}
+};
 
+function updateTheScore() {
+	let result = data.reduce(function (sum, elem) {
+		return sum + elem.num;
+	}, 0);
+	score.textContent = result;
+
+	if (result === 2048) {
+		play = false;
+		console.log(123);
+		victoryWindow.style.opacity = '1';
+	}
+};
 
 newGameButton.addEventListener('click', () => { startNewGame() });
 
@@ -163,7 +182,7 @@ window.addEventListener('keydown', (e) => {
 	let args1 = [...mainArgs, clearTheColumns];
 	let args2 = [...mainArgs, clearTheRows];
 
-	if (count === 12) {
+	if (count === 12 && play) {
 		if (e.key === 'ArrowDown' || e.key.toLowerCase() === 's') {
 			count = 0;
 			flag = true;

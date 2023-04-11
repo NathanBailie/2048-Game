@@ -375,11 +375,6 @@ html {
   margin: 0 auto;
 }
 
-canvas {
-  background: #BBADA0;
-  border-radius: 7px;
-}
-
 .upperPanel {
   width: 100%;
   display: flex;
@@ -427,7 +422,11 @@ canvas {
   flex-direction: column;
   justify-content: space-between;
 }
-.upperPanel__newGame {
+.upperPanel__buttons {
+  display: flex;
+  gap: 15px;
+}
+.upperPanel__newGame, .upperPanel__undo {
   padding: 5px 15px;
   font-size: 20px;
   background: #8F7A66;
@@ -436,11 +435,11 @@ canvas {
   border-radius: 5px;
   cursor: pointer;
 }
-.upperPanel__newGame:hover {
+.upperPanel__newGame:hover, .upperPanel__undo:hover {
   transform: scale(1.05);
   background: #97826e;
 }
-.upperPanel__newGame:active {
+.upperPanel__newGame:active, .upperPanel__undo:active {
   transform: scale(1);
   background: #8b7663;
 }
@@ -464,4 +463,32 @@ canvas {
   line-height: 28px;
   color: snow;
   font-weight: bolder;
+}
+
+.gameWraper {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  border-radius: 7px;
+}
+.gameWraper canvas {
+  background: #BBADA0;
+  border-radius: 7px;
+}
+.gameWraper .victoryWindow {
+  position: absolute;
+  top: 0;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #F9F6F2;
+  border-radius: 7px;
+  font-size: 60px;
+  font-weight: bold;
+  background: rgba(239, 183, 23, 0.6);
+  opacity: 0;
+  transition: all 1s linear;
+  user-select: none;
 }

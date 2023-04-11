@@ -54,7 +54,13 @@
 		justify-content: space-between;
 	}
 
-	&__newGame {
+	&__buttons {
+		display: flex;
+		gap: 15px;
+	}
+
+	&__newGame,
+	&__undo {
 		padding: 5px 15px;
 		font-size: 20px;
 		background: #8F7A66;
