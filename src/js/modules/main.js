@@ -12,6 +12,7 @@ let ctx = canvas.getContext('2d');
 let newGameButton = document.querySelector('.upperPanel__newGame');
 let score = document.querySelector('.upperPanel__score p');
 let victoryWindow = document.querySelector('.victoryWindow');
+let undoButton = document.querySelector('.upperPanel__undo');
 
 let cellDrawing = new CellDrawing();
 let toDrawTheCell = cellDrawing.toDrawTheCell;
@@ -95,9 +96,14 @@ function createCellObject(x, y, num) {
 	};
 };
 
+
+if (score.textContent === '0') {
+	score.style.color = '#a59e97';
+};
+
 for (const elem of data) {
 	toDrawTheCell(elem, ctx)
-}
+};
 
 function startNewGame() {
 	let firstCellNum = getRandomNum(1, 100) >= 90 ? 4 : 2;
