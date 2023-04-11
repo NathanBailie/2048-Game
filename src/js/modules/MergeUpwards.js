@@ -92,13 +92,17 @@ export default class MergeUpwards {
 	moveTheColUp = (colNumber, raiseCounter, args) => {
 		let data = args[0];
 		let index = 8 + colNumber - 1;
+		let inspect = args[7];
 
 		this.mergeUp(data[index - 4], colNumber, raiseCounter, args,
 			() => {
 				this.mergeUp(data[index], colNumber, raiseCounter, args,
 					() => {
 						this.mergeUp(data[index + 4], colNumber, raiseCounter, args,
-							() => { zeroyingMergeValue('col', colNumber, data) })
+							() => {
+								zeroyingMergeValue('col', colNumber, data);
+								colNumber === 4 && inspect();
+							})
 					})
 			});
 	};

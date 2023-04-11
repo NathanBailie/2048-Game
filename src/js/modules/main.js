@@ -12,6 +12,7 @@ let ctx = canvas.getContext('2d');
 let newGameButton = document.querySelector('.upperPanel__newGame');
 let score = document.querySelector('.upperPanel__score p');
 let victoryWindow = document.querySelector('.victoryWindow');
+let finishWindow = document.querySelector('.finishWindow');
 let undoButton = document.querySelector('.upperPanel__undo');
 
 let cellDrawing = new CellDrawing();
@@ -60,7 +61,7 @@ let data = [
 ];
 
 let previousData = [];
-let play = false;
+let play = true;
 let count = 12;
 let flag = false;
 let interval;
@@ -69,22 +70,22 @@ function raiseCounter() {
 	count += 1;
 };
 
-// data[0].num = 4; // 0
-// data[1].num = 2; // 1
-// data[2].num = 2; // 2
-// data[3].num = 4; // 3
-// data[4].num = 4; // 4
-// data[5].num = 2; // 5
-// data[6].num = 2; // 6
-// data[7].num = 4; // 7
-// data[8].num = 2; // 8
-// data[9].num = 2; // 9
-// data[10].num = 4; // 10
-// data[11].num = 2; // 11
-// data[12].num = 2; // 12
-// data[13].num = 4; // 13
-// data[14].num = 4; // 14
-// data[15].num = 8; // 15
+data[0].num = 1024; // 0
+data[1].num = 1024; // 1
+data[2].num = 3; // 2
+data[3].num = 4; // 3
+data[4].num = 5; // 4
+data[5].num = 6; // 5
+data[6].num = 7; // 6
+data[7].num = 8; // 7
+data[8].num = 9; // 8
+data[9].num = 10; // 9
+data[10].num = 11; // 10
+data[11].num = 12; // 11
+data[12].num = 13; // 12
+data[13].num = 14; // 13
+data[14].num = 15; // 14
+data[15].num = 16; // 15
 
 
 function createCellObject(x, y, num) {
@@ -135,6 +136,8 @@ function startNewGame() {
 	if (score.textContent !== '0') {
 		score.style.color = '#FFFAFA';
 	};
+	victoryWindow.style.opacity = '';
+	finishWindow.style.opacity = '';
 };
 
 function drawTheNewCell() {
@@ -182,10 +185,11 @@ function updateTheScore() {
 	}, 0);
 	score.textContent = result;
 
-	if (result === 2048) {
-		play = false;
-		console.log(123);
-		victoryWindow.style.opacity = '1';
+	for (let cell of data) {
+		if (cell.num === 2048) {
+			play = false;
+			victoryWindow.style.opacity = '1';
+		};
 	};
 };
 
@@ -198,14 +202,52 @@ function undoLastMove() {
 	updateTheScore();
 };
 
+function inspect() {
+	let first = minusInspect(1) ? true : false;
+	let second = plusInspect(1) ? true : false;
+	let third = minusInspect(4) ? true : false;
+	let fourth = plusInspect(4) ? true : false;
+
+	if (first || second || third || fourth) {
+		return true;
+	} else {
+		play = false;
+		finishWindow.style.opacity = 1;
+	};
+
+	function minusInspect(num) {
+		for (let i = 0; i < data.length; i++) {
+			if (data[i - num]) {
+				if (data[i - num].num === data[i].num ||
+					data[i - num].num === 0) {
+					return true;
+				};
+			};
+		};
+	};
+
+	function plusInspect(num) {
+		for (let i = 0; i < data.length; i++) {
+			if (data[i + num]) {
+				if (data[i + num].num === data[i].num ||
+					data[i + num].num === 0) {
+					return true;
+				};
+			};
+		};
+	};
+};
+
 undoButton.addEventListener('click', () => { undoLastMove() })
 
-newGameButton.addEventListener('click', () => { startNewGame() });
+newGameButton.addEventListener('click', () => {
+	startNewGame();
+});
 
 window.addEventListener('keydown', (e) => {
 	let mainArgs = [data, ctx, cellSize, space, speed, toDrawTheCell];
-	let args1 = [...mainArgs, clearTheColumns];
-	let args2 = [...mainArgs, clearTheRows];
+	let args1 = [...mainArgs, clearTheColumns, inspect];
+	let args2 = [...mainArgs, clearTheRows, inspect];
 
 	if (count === 12 && play) {
 		if (e.key === 'ArrowDown' || e.key.toLowerCase() === 's') {

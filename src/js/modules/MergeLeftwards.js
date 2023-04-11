@@ -104,13 +104,17 @@ export default class MergeLeftwards {
 	moveTheColLeft = (rowNumber, raiseCounter, args) => {
 		let data = args[0];
 		let index = rowNumber * 4;
+		let inspect = args[7];
 
 		this.mergeLeft(data[index - 3], rowNumber, raiseCounter, args,
 			() => {
 				this.mergeLeft(data[index - 2], rowNumber, raiseCounter, args,
 					() => {
 						this.mergeLeft(data[index - 1], rowNumber, raiseCounter, args,
-							() => { zeroyingMergeValue('row', rowNumber, data) }
+							() => {
+								zeroyingMergeValue('row', rowNumber, data);
+								rowNumber === 4 && inspect();
+							}
 						)
 					})
 			});
