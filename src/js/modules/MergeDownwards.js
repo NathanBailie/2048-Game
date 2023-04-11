@@ -1,8 +1,8 @@
 import { zeroyingMergeValue } from './utils.js';
 
 
-export default class MergeUpwards {
-	mergeUp(cell, colNumber, raiseCounter, args, callback) {
+export default class MergeDownwards {
+	mergeDown(cell, colNumber, raiseCounter, args, callback) {
 		let [data, ctx, cellSize, space, speed, toDrawTheCell, clearTheColumns] = args;
 		let index = 4;
 		let spaced = false;
@@ -14,44 +14,44 @@ export default class MergeUpwards {
 		let targetId;
 
 		if (cell.num !== 0 && cell) {
-			while (data[cellId - index].num === 0) {
+			while (data[cellId + index].num === 0) {
 				spaced = true;
 				index += 4;
-				if (!data[cellId - index]) {
+				if (!data[cellId + index]) {
 					index -= 4;
 					break;
 				};
 			};
 			if (spaced) {
-				if (data[cellId - index].merged ||
-					data[cellId - index].num !== data[cellId].num &&
-					data[cellId - index].num !== 0) {
-					target = data[cellId - index + 4];
+				if (data[cellId + index].merged ||
+					data[cellId + index].num !== data[cellId].num &&
+					data[cellId + index].num !== 0) {
+					target = data[cellId + index - 4];
 				};
-				if (!data[cellId - index].merged) {
-					if (data[cellId - index].num === data[cellId].num) {
-						data[cellId - index].merged = true;
-						target = data[cellId - index];
-					} else if (data[cellId - index].num === 0) {
-						target = data[cellId - index];
+				if (!data[cellId + index].merged) {
+					if (data[cellId + index].num === data[cellId].num) {
+						data[cellId + index].merged = true;
+						target = data[cellId + index];
+					} else if (data[cellId + index].num === 0) {
+						target = data[cellId + index];
 					};
 				};
 			};
 			if (!spaced) {
-				if (data[cellId - index].merged ||
+				if (data[cellId + index].merged ||
 					data[cellId].merged ||
-					data[cellId - index].num !== data[cellId].num &&
-					data[cellId - index].num !== 0) {
+					data[cellId + index].num !== data[cellId].num &&
+					data[cellId + index].num !== 0) {
 					raiseCounter();
 					callback && callback();
 					return;
 				};
-				if (!data[cellId - index].merged) {
-					if (data[cellId - index].num === data[cellId].num) {
-						data[cellId - index].merged = true;
-						target = data[cellId - index];
-					} else if (data[cellId - index].num === 0) {
-						target = data[cellId - index];
+				if (!data[cellId + index].merged) {
+					if (data[cellId + index].num === data[cellId].num) {
+						data[cellId + index].merged = true;
+						target = data[cellId + index];
+					} else if (data[cellId + index].num === 0) {
+						target = data[cellId + index];
 					};
 				};
 			};
@@ -89,24 +89,24 @@ export default class MergeUpwards {
 		playAnimation();
 	};
 
-	moveTheColUp = (colNumber, args, raiseCounter) => {
+	moveTheColDown = (colNumber, args, raiseCounter) => {
 		let data = args[0];
 		let index = 8 + colNumber - 1;
 
-		this.mergeUp(data[index - 4], colNumber, raiseCounter, args,
+		this.mergeDown(data[index], colNumber, raiseCounter, args,
 			() => {
-				this.mergeUp(data[index], colNumber, raiseCounter, args,
+				this.mergeDown(data[index - 4], colNumber, raiseCounter, args,
 					() => {
-						this.mergeUp(data[index + 4], colNumber, raiseCounter, args,
+						this.mergeDown(data[index - 8], colNumber, raiseCounter, args,
 							() => { zeroyingMergeValue('col', colNumber, data) })
 					})
 			});
 	};
 
-	moveAllCellsUp = (raiseCounter, args) => {
-		this.moveTheColUp(1, args, raiseCounter);
-		this.moveTheColUp(2, args, raiseCounter);
-		this.moveTheColUp(3, args, raiseCounter);
-		this.moveTheColUp(4, args, raiseCounter);
+	moveAllCellsDown = (raiseCounter, args) => {
+		this.moveTheColDown(1, args, raiseCounter,);
+		this.moveTheColDown(2, args, raiseCounter);
+		this.moveTheColDown(3, args, raiseCounter);
+		this.moveTheColDown(4, args, raiseCounter);
 	};
 };

@@ -28,6 +28,9 @@ let moveAllCellsDown = mergeDownwards.moveAllCellsDown;
 let mergeUpwards = new MergeUpwards();
 let moveAllCellsUp = mergeUpwards.moveAllCellsUp;
 
+let mergeRightwards = new MergeRightwards();
+let moveAllCellsRight = mergeRightwards.moveAllCellsRight;
+
 let data = [
 	createCellObject(space, space, 0),
 	createCellObject(cellSize + space * 2, space, 0),
@@ -104,6 +107,10 @@ window.addEventListener('keydown', (e) => {
 		if (e.key === 'ArrowUp' || e.key.toLowerCase() === 'w') {
 			count = 0;
 			moveAllCellsUp(raiseCounter, args1);
+		};
+		if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') {
+			count = 0;
+			moveAllCellsRight(raiseCounter, args2, changeMergeValue);
 		};
 	}
 });
