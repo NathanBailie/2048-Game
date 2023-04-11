@@ -5,9 +5,11 @@ import MergeDownwards from './MergeDownwards.js';
 import MergeUpwards from './MergeUpwards.js';
 import MergeRightwards from './MergeRightwards.js';
 import MergeLeftwards from './MergeLeftwards.js';
+import { getRandomNum } from './utils.js';
 
 let canvas = document.querySelector('canvas');
 let ctx = canvas.getContext('2d');
+let newGameButton = document.querySelector('.upperPanel__newGame');
 
 let cellDrawing = new CellDrawing();
 let toDrawTheCell = cellDrawing.toDrawTheCell;
@@ -64,22 +66,22 @@ function changeMergeValue(index) {
 	data[index].merged = true;
 };
 
-data[0].num = 4; // 0
-data[1].num = 2; // 1
-data[2].num = 2; // 2
-data[3].num = 4; // 3
-data[4].num = 4; // 4
-data[5].num = 2; // 5
-data[6].num = 2; // 6
-data[7].num = 4; // 7
-data[8].num = 2; // 8
-data[9].num = 2; // 9
-data[10].num = 4; // 10
-data[11].num = 2; // 11
-data[12].num = 2; // 12
-data[13].num = 4; // 13
-data[14].num = 4; // 14
-data[15].num = 8; // 15
+// data[0].num = 4; // 0
+// data[1].num = 2; // 1
+// data[2].num = 2; // 2
+// data[3].num = 4; // 3
+// data[4].num = 4; // 4
+// data[5].num = 2; // 5
+// data[6].num = 2; // 6
+// data[7].num = 4; // 7
+// data[8].num = 2; // 8
+// data[9].num = 2; // 9
+// data[10].num = 4; // 10
+// data[11].num = 2; // 11
+// data[12].num = 2; // 12
+// data[13].num = 4; // 13
+// data[14].num = 4; // 14
+// data[15].num = 8; // 15
 
 
 function createCellObject(x, y, num) {
@@ -91,18 +93,41 @@ function createCellObject(x, y, num) {
 	};
 };
 
-toDrawTheBoard();
+for (const elem of data) {
+	toDrawTheCell(elem, ctx)
+}
 
-function toDrawTheBoard() {
+
+function startNewGame() {
+	let firstCellNum = getRandomNum(1, 100) >= 90 ? 4 : 2;
+	let secondCellNum = getRandomNum(1, 100) >= 90 ? 4 : 2;
+
+	for (let elem of data) {
+		elem.num = 0;
+		elem.merged = false;
+	};
+	let firstCell = getRandomNum(0, 15);
+	let secondCell = getRandomNum(0, 15);
+
+	while (secondCell === firstCell) {
+		secondCell = getRandomNum(0, 15);
+	};
+
+	data[firstCell].num = firstCellNum;
+	data[secondCell].num = secondCellNum;
 	for (let elem of data) {
 		toDrawTheCell(elem, ctx);
 	};
 };
 
+
+newGameButton.addEventListener('click', () => { startNewGame() });
+
 window.addEventListener('keydown', (e) => {
 	let mainArgs = [data, ctx, cellSize, space, speed, toDrawTheCell];
 	let args1 = [...mainArgs, clearTheColumns];
 	let args2 = [...mainArgs, clearTheRows];
+
 	if (count === 12) {
 		if (e.key === 'ArrowDown' || e.key.toLowerCase() === 's') {
 			count = 0;
