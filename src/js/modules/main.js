@@ -96,7 +96,6 @@ function createCellObject(x, y, num) {
 	};
 };
 
-
 if (score.textContent === '0') {
 	score.style.color = '#a59e97';
 };
@@ -127,6 +126,10 @@ function startNewGame() {
 	};
 	play = true;
 	updateTheScore();
+
+	if (score.textContent !== '0') {
+		score.style.color = '#FFFAFA';
+	};
 };
 
 function drawTheNewCell() {
