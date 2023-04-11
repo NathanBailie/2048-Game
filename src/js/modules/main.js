@@ -100,9 +100,14 @@ if (score.textContent === '0') {
 	score.style.color = '#a59e97';
 };
 
-for (const elem of data) {
-	toDrawTheCell(elem, ctx)
-};
+
+toDrawTheBoard();
+
+function toDrawTheBoard() {
+	for (const elem of data) {
+		toDrawTheCell(elem, ctx)
+	};
+}
 
 function startNewGame() {
 	let firstCellNum = getRandomNum(1, 100) >= 90 ? 4 : 2;
@@ -181,8 +186,19 @@ function updateTheScore() {
 		play = false;
 		console.log(123);
 		victoryWindow.style.opacity = '1';
-	}
+	};
 };
+
+function undoLastMove() {
+	for (let i = 0; i < data.length; i++) {
+		data[i].num = previousData[i].num;
+		data[i].merged = previousData[i].merged;
+	};
+	toDrawTheBoard();
+	updateTheScore();
+};
+
+undoButton.addEventListener('click', () => { undoLastMove() })
 
 newGameButton.addEventListener('click', () => { startNewGame() });
 
