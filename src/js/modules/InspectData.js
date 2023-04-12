@@ -1,6 +1,6 @@
 export default class InspectData {
 
-  inspect = (data, finishWindow) => {
+  inspect = (data, finishWindow, play) => {
     let first = this.minusInspect(1, data) ? true : false;
     let second = this.plusInspect(1, data) ? true : false;
     let third = this.minusInspect(4, data) ? true : false;

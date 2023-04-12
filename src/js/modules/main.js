@@ -92,13 +92,20 @@ function toDrawTheBoard() {
 }
 
 function startNewGame() {
+	for (let cell of data) {
+		cell.num = 0;
+		cell.merged = false;
+	};
+	previousData = [];
+	if (score.textContent !== '0') {
+		score.style.color = '#FFFAFA';
+	};
+	victoryWindow.style.opacity = '';
+	finishWindow.style.opacity = '';
+	play = true;
+
 	let firstCellNum = getRandomNum(1, 100) >= 90 ? 4 : 2;
 	let secondCellNum = getRandomNum(1, 100) >= 90 ? 4 : 2;
-
-	for (let elem of data) {
-		elem.num = 0;
-		elem.merged = false;
-	};
 	let firstCell = getRandomNum(0, 15);
 	let secondCell = getRandomNum(0, 15);
 
@@ -111,14 +118,8 @@ function startNewGame() {
 	for (let elem of data) {
 		toDrawTheCell(elem, ctx);
 	};
-	play = true;
-	updateTheScore();
 
-	if (score.textContent !== '0') {
-		score.style.color = '#FFFAFA';
-	};
-	victoryWindow.style.opacity = '';
-	finishWindow.style.opacity = '';
+	updateTheScore();
 };
 
 function drawTheNewCell() {
@@ -171,14 +172,16 @@ function updateTheScore() {
 			victoryWindow.style.opacity = '1';
 		};
 	};
-	inspect(data, finishWindow);
+	inspect(data, finishWindow, play);
 };
 
 function undoLastMove() {
-	for (let i = 0; i < data.length; i++) {
-		data[i].num = previousData[i].num;
-		data[i].merged = previousData[i].merged;
-	};
+	if (previousData.length > 0) {
+		for (let i = 0; i < data.length; i++) {
+			data[i].num = previousData[i].num;
+			data[i].merged = previousData[i].merged;
+		};
+	}
 	play = true;
 	victoryWindow.style.opacity = '0';
 	finishWindow.style.opacity = '0';
@@ -188,9 +191,7 @@ function undoLastMove() {
 
 undoButton.addEventListener('click', () => { undoLastMove() })
 
-newGameButton.addEventListener('click', () => {
-	startNewGame();
-});
+newGameButton.addEventListener('click', () => { startNewGame() });
 
 window.addEventListener('keydown', (e) => {
 	let mainArgs = [data, ctx, cellSize, space, speed, toDrawTheCell];
@@ -199,32 +200,24 @@ window.addEventListener('keydown', (e) => {
 
 	if (count === 12 && play) {
 		if (e.key === 'ArrowDown' || e.key.toLowerCase() === 's') {
-			count = 0;
-			flag = true;
-			copyData(data);
-			moveAllCellsDown(raiseCounter, args1);
-			runInterval();
+			littleOptimizer(copyData, data, moveAllCellsDown, raiseCounter, args1, runInterval);
 		};
 		if (e.key === 'ArrowUp' || e.key.toLowerCase() === 'w') {
-			count = 0;
-			flag = true;
-			copyData(data);
-			moveAllCellsUp(raiseCounter, args1);
-			runInterval();
+			littleOptimizer(copyData, data, moveAllCellsUp, raiseCounter, args1, runInterval);
 		};
 		if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') {
-			count = 0;
-			flag = true;
-			copyData(data);
-			moveAllCellsRight(raiseCounter, args2);
-			runInterval();
+			littleOptimizer(copyData, data, moveAllCellsRight, raiseCounter, args2, runInterval);
 		};
 		if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') {
-			count = 0;
-			flag = true;
-			copyData(data);
-			moveAllCellsLeft(raiseCounter, args2);
-			runInterval();
+			littleOptimizer(copyData, data, moveAllCellsLeft, raiseCounter, args2, runInterval);
 		};
 	};
 });
+
+function littleOptimizer(copyData, data, mergeFunction, raiseCounter, args, runInterval) {
+	count = 0;
+	flag = true;
+	copyData(data);
+	mergeFunction(raiseCounter, args);
+	runInterval();
+};
