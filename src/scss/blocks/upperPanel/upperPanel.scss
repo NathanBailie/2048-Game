@@ -81,6 +81,30 @@
 		}
 	}
 
+	&__undo {
+		position: relative;
+
+		&:before {
+			content: "\21BA";
+			opacity: 0;
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			color: #ffffff;
+			font-size: 33px;
+			line-height: 21px;
+			transition: all 0.3s linear;
+		}
+
+		&:hover {
+			color: #97826e;
+
+			&:before {
+				opacity: 1;
+			}
+		}
+	}
+
 	&__score {
 		text-transform: uppercase;
 		display: flex;

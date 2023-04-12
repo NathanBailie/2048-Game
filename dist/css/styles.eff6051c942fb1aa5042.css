@@ -354,6 +354,7 @@ template {
 /*!*************************************************************************************************************!*\
   !*** css ../node_modules/css-loader/dist/cjs.js!../node_modules/sass-loader/dist/cjs.js!./scss/styles.scss ***!
   \*************************************************************************************************************/
+@charset "UTF-8";
 * {
   font-family: "", sans-serif;
   margin: 0;
@@ -443,6 +444,26 @@ html {
 .upperPanel__newGame:active, .upperPanel__undo:active {
   transform: scale(1);
   background: #8b7663;
+}
+.upperPanel__undo {
+  position: relative;
+}
+.upperPanel__undo:before {
+  content: "↺";
+  opacity: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffffff;
+  font-size: 33px;
+  line-height: 21px;
+  transition: all 0.3s linear;
+}
+.upperPanel__undo:hover {
+  color: #97826e;
+}
+.upperPanel__undo:hover:before {
+  opacity: 1;
 }
 .upperPanel__score {
   text-transform: uppercase;
