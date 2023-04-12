@@ -20,24 +20,20 @@ let toDrawTheCell = cellDrawing.toDrawTheCell;
 
 let basicSettings = new BasicSettings();
 let cellSize = basicSettings.cellSize;
-let center = basicSettings.center;
 let space = basicSettings.space;
-let bordRad = basicSettings.bordRad;
 let speed = basicSettings.speed;
 
 let cellCleaning = new CellCleaning();
 let clearTheColumns = cellCleaning.clearTheColumns;
 let clearTheRows = cellCleaning.clearTheRows;
 
+// Cell Merging
 let mergeDownwards = new MergeDownwards();
 let moveAllCellsDown = mergeDownwards.moveAllCellsDown;
-
 let mergeUpwards = new MergeUpwards();
 let moveAllCellsUp = mergeUpwards.moveAllCellsUp;
-
 let mergeRightwards = new MergeRightwards();
 let moveAllCellsRight = mergeRightwards.moveAllCellsRight;
-
 let mergeLeftwards = new MergeLeftwards();
 let moveAllCellsLeft = mergeLeftwards.moveAllCellsLeft;
 
@@ -70,24 +66,6 @@ function raiseCounter() {
 	count += 1;
 };
 
-data[0].num = 1024; // 0
-data[1].num = 1024; // 1
-data[2].num = 3; // 2
-data[3].num = 4; // 3
-data[4].num = 5; // 4
-data[5].num = 6; // 5
-data[6].num = 7; // 6
-data[7].num = 8; // 7
-data[8].num = 9; // 8
-data[9].num = 10; // 9
-data[10].num = 11; // 10
-data[11].num = 12; // 11
-data[12].num = 13; // 12
-data[13].num = 14; // 13
-data[14].num = 15; // 14
-data[15].num = 16; // 15
-
-
 function createCellObject(x, y, num) {
 	return {
 		x: x,
@@ -100,7 +78,6 @@ function createCellObject(x, y, num) {
 if (score.textContent === '0') {
 	score.style.color = '#a59e97';
 };
-
 
 toDrawTheBoard();
 
@@ -207,20 +184,34 @@ function inspect() {
 	let second = plusInspect(1) ? true : false;
 	let third = minusInspect(4) ? true : false;
 	let fourth = plusInspect(4) ? true : false;
+	console.log(first, second, third, fourth);
 
 	if (first || second || third || fourth) {
 		return true;
 	} else {
 		play = false;
 		finishWindow.style.opacity = 1;
+		console.log(123);
 	};
 
 	function minusInspect(num) {
 		for (let i = 0; i < data.length; i++) {
 			if (data[i - num]) {
-				if (data[i - num].num === data[i].num ||
-					data[i - num].num === 0) {
-					return true;
+				if (num === 4) {
+					if (data[i - num].num === data[i].num ||
+						data[i - num].num === 0) {
+						return true;
+					};
+				};
+				if (num === 1) {
+					if ((data[i - num].num === data[i].num ||
+						data[i - num].num === 0) &&
+						i !== 0 &&
+						i !== 4 &&
+						i !== 8 &&
+						i !== 12) {
+						return true;
+					};
 				};
 			};
 		};
@@ -229,9 +220,21 @@ function inspect() {
 	function plusInspect(num) {
 		for (let i = 0; i < data.length; i++) {
 			if (data[i + num]) {
-				if (data[i + num].num === data[i].num ||
-					data[i + num].num === 0) {
-					return true;
+				if (num === 4) {
+					if (data[i + num].num === data[i].num ||
+						data[i + num].num === 0) {
+						return true;
+					};
+				};
+				if (num === 1) {
+					if ((data[i + num].num === data[i].num ||
+						data[i + num].num === 0) &&
+						i !== 3 &&
+						i !== 7 &&
+						i !== 11 &&
+						i !== 15) {
+						return true;
+					};
 				};
 			};
 		};

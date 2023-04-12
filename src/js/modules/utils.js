@@ -35,4 +35,4 @@ export function compareArraysOfObjects(arr1, arr2) {
 	};
 
 	return true;
-}
+};
