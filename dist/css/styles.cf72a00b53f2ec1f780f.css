@@ -402,7 +402,7 @@ html {
   color: #E6BF3D;
 }
 .upperPanel__gameName h1 span:nth-child(2) {
-  color: #CFC7BE;
+  color: #b7d179;
 }
 .upperPanel__gameName h1 span:nth-child(3) {
   color: #F59662;
@@ -414,7 +414,7 @@ html {
   font-size: 48px;
   line-height: 48px;
   font-family: Helvetica;
-  color: #d3663c;
+  color: #fb669d;
   text-shadow: 1px 1px 3px #2e2e11;
 }
 .upperPanel__wraper {
@@ -447,6 +447,7 @@ html {
 }
 .upperPanel__undo {
   position: relative;
+  transition: all 0.1s linear;
 }
 .upperPanel__undo:before {
   content: "↺";
@@ -454,16 +455,18 @@ html {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  color: #ffffff;
-  font-size: 33px;
+  color: #ffebd1;
+  font-size: 30px;
   line-height: 21px;
-  transition: all 0.3s linear;
 }
 .upperPanel__undo:hover {
   color: #97826e;
 }
 .upperPanel__undo:hover:before {
   opacity: 1;
+}
+.upperPanel__undo:active {
+  color: #8b7663;
 }
 .upperPanel__score {
   text-transform: uppercase;
