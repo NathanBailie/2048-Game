@@ -204,16 +204,28 @@ window.addEventListener('keydown', (e) => {
 	let args2 = [...mainArgs, clearTheRows];
 
 	if (count === 12 && play) {
-		if (e.key === 'ArrowDown' || e.key.toLowerCase() === 's') {
+		if (e.key === 'ArrowDown' ||
+			e.key.toLowerCase() === 's' ||
+			e.key.toLowerCase() === 'ы'
+		) {
 			littleOptimizer(copyData, data, moveAllCellsDown, raiseCounter, args1, runInterval);
 		};
-		if (e.key === 'ArrowUp' || e.key.toLowerCase() === 'w') {
+		if (e.key === 'ArrowUp' ||
+			e.key.toLowerCase() === 'w' ||
+			e.key.toLowerCase() === 'ц'
+		) {
 			littleOptimizer(copyData, data, moveAllCellsUp, raiseCounter, args1, runInterval);
 		};
-		if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') {
+		if (e.key === 'ArrowRight' ||
+			e.key.toLowerCase() === 'd' ||
+			e.key.toLowerCase() === 'в'
+		) {
 			littleOptimizer(copyData, data, moveAllCellsRight, raiseCounter, args2, runInterval);
 		};
-		if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') {
+		if (e.key === 'ArrowLeft' ||
+			e.key.toLowerCase() === 'a' ||
+			e.key.toLowerCase() === 'ф'
+		) {
 			littleOptimizer(copyData, data, moveAllCellsLeft, raiseCounter, args2, runInterval);
 		};
 	};
