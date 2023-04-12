@@ -434,6 +434,7 @@ html {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  outline: none;
 }
 .upperPanel__newGame:hover, .upperPanel__undo:hover {
   transform: scale(1.05);

@@ -101,9 +101,7 @@ function startNewGame() {
 		cell.merged = false;
 	};
 	previousData = [];
-	if (score.textContent !== '0') {
-		score.style.color = '#FFFAFA';
-	};
+	score.textContent = 0;
 	victoryWindow.style.opacity = '';
 	finishWindow.style.opacity = '';
 	play = true;
@@ -124,6 +122,9 @@ function startNewGame() {
 	};
 
 	updateTheScore();
+	if (score.textContent !== '0') {
+		score.style.color = '#FFFAFA';
+	};
 };
 
 function drawTheNewCell() {
