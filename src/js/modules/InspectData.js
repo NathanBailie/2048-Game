@@ -1,6 +1,6 @@
 export default class InspectData {
 
-  inspect = (data, finishWindow, play) => {
+  inspect = (data, finishWindow, gameOff) => {
     let first = this.minusInspect(1, data) ? true : false;
     let second = this.plusInspect(1, data) ? true : false;
     let third = this.minusInspect(4, data) ? true : false;
@@ -9,8 +9,15 @@ export default class InspectData {
     if (first || second || third || fourth) {
       return true;
     } else {
-      play = false;
+      gameOff();
       finishWindow.style.opacity = 1;
+    };
+
+    for (let cell of data) {
+      if (cell.num === 2048) {
+        gameOff();
+        victoryWindow.style.opacity = 1;
+      };
     };
   };
 

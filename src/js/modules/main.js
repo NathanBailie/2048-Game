@@ -70,6 +70,10 @@ function raiseCounter() {
 	count += 1;
 };
 
+function gameOff() {
+	play = false;
+};
+
 function createCellObject(x, y, num) {
 	return {
 		x: x,
@@ -172,7 +176,7 @@ function updateTheScore() {
 			victoryWindow.style.opacity = '1';
 		};
 	};
-	inspect(data, finishWindow, play);
+	inspect(data, finishWindow, gameOff);
 };
 
 function undoLastMove() {
