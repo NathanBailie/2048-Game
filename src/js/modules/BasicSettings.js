@@ -3,5 +3,5 @@ export default class BasicSettings {
 	center = this.cellSize / 2;
 	space = 12;
 	bordRad = 10;
-	speed = 60;
+	speed = 55;
 };

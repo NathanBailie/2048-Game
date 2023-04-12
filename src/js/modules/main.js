@@ -5,6 +5,7 @@ import MergeDownwards from './MergeDownwards.js';
 import MergeUpwards from './MergeUpwards.js';
 import MergeRightwards from './MergeRightwards.js';
 import MergeLeftwards from './MergeLeftwards.js';
+import InspectData from './InspectData.js';
 import { getRandomNum, compareArraysOfObjects } from './utils.js';
 
 let canvas = document.querySelector('canvas');
@@ -36,6 +37,9 @@ let mergeRightwards = new MergeRightwards();
 let moveAllCellsRight = mergeRightwards.moveAllCellsRight;
 let mergeLeftwards = new MergeLeftwards();
 let moveAllCellsLeft = mergeLeftwards.moveAllCellsLeft;
+
+let inspectData = new InspectData();
+let inspect = inspectData.inspect;
 
 let data = [
 	createCellObject(space, space, 0),
@@ -82,7 +86,7 @@ if (score.textContent === '0') {
 toDrawTheBoard();
 
 function toDrawTheBoard() {
-	for (const elem of data) {
+	for (let elem of data) {
 		toDrawTheCell(elem, ctx)
 	};
 }
@@ -150,7 +154,6 @@ function runInterval() {
 
 function copyData(data) {
 	previousData = [];
-
 	for (let elem of data) {
 		previousData.push({ ...elem });
 	};
@@ -168,6 +171,7 @@ function updateTheScore() {
 			victoryWindow.style.opacity = '1';
 		};
 	};
+	inspect(data, finishWindow);
 };
 
 function undoLastMove() {
@@ -175,70 +179,11 @@ function undoLastMove() {
 		data[i].num = previousData[i].num;
 		data[i].merged = previousData[i].merged;
 	};
+	play = true;
+	victoryWindow.style.opacity = '0';
+	finishWindow.style.opacity = '0';
 	toDrawTheBoard();
 	updateTheScore();
-};
-
-function inspect() {
-	let first = minusInspect(1) ? true : false;
-	let second = plusInspect(1) ? true : false;
-	let third = minusInspect(4) ? true : false;
-	let fourth = plusInspect(4) ? true : false;
-	console.log(first, second, third, fourth);
-
-	if (first || second || third || fourth) {
-		return true;
-	} else {
-		play = false;
-		finishWindow.style.opacity = 1;
-		console.log(123);
-	};
-
-	function minusInspect(num) {
-		for (let i = 0; i < data.length; i++) {
-			if (data[i - num]) {
-				if (num === 4) {
-					if (data[i - num].num === data[i].num ||
-						data[i - num].num === 0) {
-						return true;
-					};
-				};
-				if (num === 1) {
-					if ((data[i - num].num === data[i].num ||
-						data[i - num].num === 0) &&
-						i !== 0 &&
-						i !== 4 &&
-						i !== 8 &&
-						i !== 12) {
-						return true;
-					};
-				};
-			};
-		};
-	};
-
-	function plusInspect(num) {
-		for (let i = 0; i < data.length; i++) {
-			if (data[i + num]) {
-				if (num === 4) {
-					if (data[i + num].num === data[i].num ||
-						data[i + num].num === 0) {
-						return true;
-					};
-				};
-				if (num === 1) {
-					if ((data[i + num].num === data[i].num ||
-						data[i + num].num === 0) &&
-						i !== 3 &&
-						i !== 7 &&
-						i !== 11 &&
-						i !== 15) {
-						return true;
-					};
-				};
-			};
-		};
-	};
 };
 
 undoButton.addEventListener('click', () => { undoLastMove() })
@@ -249,8 +194,8 @@ newGameButton.addEventListener('click', () => {
 
 window.addEventListener('keydown', (e) => {
 	let mainArgs = [data, ctx, cellSize, space, speed, toDrawTheCell];
-	let args1 = [...mainArgs, clearTheColumns, inspect];
-	let args2 = [...mainArgs, clearTheRows, inspect];
+	let args1 = [...mainArgs, clearTheColumns];
+	let args2 = [...mainArgs, clearTheRows];
 
 	if (count === 12 && play) {
 		if (e.key === 'ArrowDown' || e.key.toLowerCase() === 's') {

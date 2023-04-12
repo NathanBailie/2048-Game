@@ -104,7 +104,6 @@ export default class MergeRightwards {
 	moveTheColRight = (rowNumber, raiseCounter, args) => {
 		let data = args[0];
 		let index = (rowNumber - 1) * 4;
-		let inspect = args[7];
 
 		this.mergeRight(data[index + 2], rowNumber, raiseCounter, args,
 			() => {
@@ -113,7 +112,6 @@ export default class MergeRightwards {
 						this.mergeRight(data[index], rowNumber, raiseCounter, args,
 							() => {
 								zeroyingMergeValue('row', rowNumber, data);
-								rowNumber === 4 && inspect();
 							}
 						)
 					})
