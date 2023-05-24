@@ -10,7 +10,7 @@ A popular puzzle game.
 
 ## Tech
 * Html
-* Css (SCSS)
+* CSS (SCSS, flex)
 * JavaScript (modal windows, classes)
 * Canvas
 * Webpack
